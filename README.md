@@ -70,6 +70,7 @@ Table 1: VAR Results
 |1                                       |1000                                            |0.173             |0.085           |
 |2                                       |1000                                            |0.157             |0.079           |
 |3                                       |1000                                            |0.160             |0.073           |
+
 Adding a second lag reduced the mean RMSE from 0.17 to 0.16 mg/L. A third lag did not improve the rounded mean error, although the standard deviation was slightly lower. VAR(2) was chosen as the linear baseline because it performed almost as well as VAR(3) with fewer inputs. The small differences between the two models did not provide a strong reason to prefer the more complex version.
 
 ![VAR(2) recursive forecasts](figures/var_p2.png)
@@ -133,7 +134,7 @@ Table 3: Summary of economic evaluation results.
 
 |Initial glucose [mM]|Initial glutamine [mM]|Initial VCD [cells/mL]|Harvest time [d]|Cell culture cost [$/L]|Cell culture value [$/L]|Value 95% PI lower [$/L]|Value 95% PI upper [$/L]|Space-time profit [$/L/d]|Profit 95% PI lower [$/L/d]|Profit 95% PI upper [$/L/d]|Space-time yield [mg/L/d]|Yield 95% PI lower [mg/L/d]|Yield 95% PI upper [mg/L/d]|
 |--------------------|----------------------|----------------------|----------------|-----------------------|------------------------|------------------------|------------------------|-------------------------|---------------------------|---------------------------|-------------------------|---------------------------|---------------------------|
-|20.0                |2.0                   |200000.0              |4.0             |340.0                  |772.7291917928534       |622.8199989044004       |923.9908121678421       |86.54583835857068        |56.56399978088009          |116.79816243356842         |0.15454583835857066      |0.12456399978088009        |0.18479816243356845        |
+|20.0                |2.0                   |200000.0              |4.0             |340.0                  |772.729                 |622.820                 |923.991                 |86.546                   |56.564                     |116.798                    |0.1545                   |0.125                      |0.185                      |
 
 
 The predicted mAb concentration at harvest is 0.773 mg/L. Subtracting the 340.00/L cost from the $772.73/L value and dividing by five days gives the reported profit.
