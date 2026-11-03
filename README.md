@@ -72,8 +72,9 @@ Table 1: VAR Results
 |3                                       |1000                                            |0.160             |0.073           |
 Adding a second lag reduced the mean RMSE from 0.17 to 0.16 mg/L. A third lag did not improve the rounded mean error, although the standard deviation was slightly lower. VAR(2) was chosen as the linear baseline because it performed almost as well as VAR(3) with fewer inputs. The small differences between the two models did not provide a strong reason to prefer the more complex version.
 
-![img.png](img.png)figures/var_p2.png
-Figure 1: VAR(2) forecast comparison.
+![VAR(2) recursive forecasts](figures/var_p2.png)
+
+*Figure 1. Observed and predicted mAb concentrations using VAR(2), with 95% prediction intervals.*
 
 The plots highlight the limitations of relying on RMSE alone. VAR(2) generally captures the initial increase in mAb concentration, but it sometimes predicts a higher final concentration than the culture actually reaches. Batches 0001, 0082, and 0862 show this behaviour clearly, with RMSE values of roughly 0.31, 0.35, and 0.39 mg/L. Batch 0403, by comparison, is predicted much more closely, at approximately 0.05 mg/L. The difference between batches suggests that the model works better for some starting conditions than others.
 
@@ -82,7 +83,7 @@ Prediction intervals also tend to spread out over longer forecasts. This is expe
 ### Nonlinear Models and Model Selection
 The same batches and forecast procedure were used to compare polynomial and k-NN NVAR models. Polynomial degree and k-NN neighbour count were tuned using the training batches, and the final errors were calculated from recursive mAb forecasts. The plotted polynomial NVAR models use degree 2.
 
-Table 2: NVAR Results
+Table 2: NVAR Results.
 
 |Model                                   |p                                               |N simulations|RMSE (mean) [mg/L]|RMSE (SD) [mg/L]   |
 |----------------------------------------|------------------------------------------------|-------------|------------------|-------------------|
@@ -100,11 +101,14 @@ The comparison with polynomial NVAR(2) was closer. NVAR(2) achieved 0.12 ± 0.07
 
 k-NN produced less accurate forecasts overall. Its best configuration, NVAR(2), achieved 0.15 ± 0.07 mg/L, only a small improvement over VAR(2). The k-NN forecasts often follow a similar pattern across batches, but their plateaus can miss the measured values. Polynomial regression appears better able to represent the changing shape of these particular production curves.
 
-![nvar_poly_p3.png](figures/nvar_poly_p3.png)
-Figure 2: Polynomial NVAR(3) forecast comparison.
+![Polynomial NVAR(3) recursive forecasts](figures/nvar_poly_p3.png)
 
-![nvar_knn_p2.png](figures/nvar_knn_p2.png)
-Figure 3: kNN NVAR(2) forecast comparison. 
+*Figure 2. Observed and predicted mAb concentrations using second-degree polynomial NVAR(3), with 95% prediction intervals.*
+
+![k-NN NVAR(2) recursive forecasts](figures/nvar_knn_p2.png)
+
+*Figure 3. Observed and predicted mAb concentrations using k-nearest neighbours NVAR(2), with 95% prediction intervals.*
+
 The selected model nevertheless has several limitations. For batch 0001, the NVAR(3) forecast continues above the measured plateau, producing an RMSE of about 0.34 mg/L. Batch 0862 is also overpredicted, with an RMSE of approximately 0.20 mg/L. At the other extreme, batch 1027 has a fairly small RMSE of about 0.08 mg/L but an unusually broad prediction interval near the end of the run. These errors are relevant to optimization because the predicted antibody concentration determines product value at harvest. A systematic error in that concentration directly changes the estimated product value and profit.
 
 Polynomial forecasts were clipped to the observed training ranges before residual noise was added. This prevents some extreme predictions as errors accumulate, but it can also hide behaviour that genuinely extends beyond the observed data. The model's strong average performance does not remove the need to examine its forecasts at the recommended operating conditions.
@@ -134,8 +138,9 @@ Table 3: Summary of economic evaluation results.
 
 The predicted mAb concentration at harvest is 0.773 mg/L. Subtracting the 340.00/L cost from the $772.73/L value and dividing by five days gives the reported profit.
 
-![img_1.png](img_1.png)
-Figure 4: Predicted profit and yield through varying individual initial conditions.
+![Effects of initial conditions on profit and yield](figures/initial_condition_effects.png)
+
+*Figure 4. Effect of initial glucose, glutamine, and viable cell density on predicted space-time profit and yield. Dashed red lines indicate the conditions selected to maximize profit.*
 
 In Figure 4, Harvest time is re-optimized at each point; dashed lines identify the recommended conditions.
 
